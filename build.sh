@@ -70,6 +70,11 @@ fi
 
 [ "$GCC_BUILTIN_PREREQS" = "yes" ] && gccprereqs
 
+# Modify reload1.c if GCC_VERSION is 5.3.0 to fix the C++17 compatibility issue
+if [ "$GCC_VERSION" = "5.3.0" ]; then
+    sed -i 's/spill_indirect_levels++/spill_indirect_levels = true/g' gcc-$GCC_VERSION/gcc/reload1.c
+fi
+
 # gcc 1 is only used to bootstrap musl and gcc 2, so it is pointless to
 # optimize it.
 # If GCC_STAGE1_NOOPT is set, we build it without optimization and debug info,
