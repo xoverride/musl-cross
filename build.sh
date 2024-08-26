@@ -75,6 +75,10 @@ if [ "$GCC_VERSION" = "5.3.0" ]; then
     sed -i 's/spill_indirect_levels++/spill_indirect_levels = true/g' gcc-$GCC_VERSION/gcc/reload1.c
 fi
 
+# Create an include directory and an empty stdc-predef.h file to silence the missing include path error
+mkdir -p gcc-$GCC_VERSION/gcc/include
+touch gcc-$GCC_VERSION/gcc/include/stdc-predef.h
+
 # gcc 1 is only used to bootstrap musl and gcc 2, so it is pointless to
 # optimize it.
 # If GCC_STAGE1_NOOPT is set, we build it without optimization and debug info,
